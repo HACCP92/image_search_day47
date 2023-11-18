@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_search_day47/presentation/main/main_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -66,6 +67,21 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   itemBuilder: (context, index) {
                     final photo = state.photos[index];
+                    return Hero(
+                      tag: photo.id,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.push('/detail', extra: photo);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            photo.webformatURL,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
               )
